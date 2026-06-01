@@ -4,6 +4,7 @@ package com.aldisued.iot.monitoring.service;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Service
 public class MeasurementCalculatorService {
@@ -26,8 +27,16 @@ public class MeasurementCalculatorService {
     }
 
     public List<Double> getMovingAverage(List<Double> data, int windowSize) {
-        // TODO: Task 10
-        return List.of();
+        if (windowSize <= 0 || windowSize > data.size()) {
+            throw new IllegalArgumentException("Window size must be between 0 and the size of the data list");
+        }
+        return IntStream.rangeClosed(0, data.size() - windowSize)
+                .mapToObj(i -> data.subList(i, i + windowSize))
+                .map(subList -> subList.stream()
+                        .mapToDouble(Double::doubleValue)
+                        .average()
+                        .orElse(0.0))
+                .toList();
     }
 
 }
