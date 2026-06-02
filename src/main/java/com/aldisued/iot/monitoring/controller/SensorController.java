@@ -27,10 +27,4 @@ public class SensorController {
   public Sensor saveSensor(@Valid @RequestBody SensorDto sensorDto) {
     return sensorService.saveSensor(sensorDto);
   }
-
-  @ExceptionHandler(SensorNameAlreadyExistsException.class)
-  @ResponseStatus(HttpStatus.CONFLICT)
-  public String handleDataIntegrityViolationException(SensorNameAlreadyExistsException ex) {
-    return ex.getMessage();
-  }
 }

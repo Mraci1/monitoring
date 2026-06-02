@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface SensorReadingRepository extends JpaRepository<SensorReading, String> {
+public interface SensorReadingRepository extends JpaRepository<SensorReading, Long> {
 
     @Query("SELECT AVG(r.value) FROM SensorReading r WHERE r.sensor.type = :type AND r.timestamp BETWEEN :from AND :to")
     Optional<Double> findAverageValueByTypeAndTimestampBetween(SensorType type, LocalDateTime from, LocalDateTime to);

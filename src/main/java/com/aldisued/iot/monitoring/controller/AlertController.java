@@ -27,10 +27,4 @@ public class AlertController {
     public AlertDto getLatestAlert(@RequestParam UUID sensorId) {
         return alertService.findLastAlertBySensorId(sensorId);
     }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(AlertNotFoundException.class)
-    public String handleNoSuchElementException(AlertNotFoundException ex) {
-        return ex.getMessage();
-    }
 }
